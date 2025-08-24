@@ -416,11 +416,11 @@ export default class imageAutoUploadPlugin extends Plugin {
                 let res: any;
                 res = await this.uploadByClipboard(evt.clipboardData.files);
 
-                if (res.code !== 0) {
+                if (!res.success) {
                   this.handleFailedUpload(editor, pasteId, res.msg);
                   return;
                 }
-                const url = res.data;
+                const url = res.result[0];
 
                 return url;
               },
