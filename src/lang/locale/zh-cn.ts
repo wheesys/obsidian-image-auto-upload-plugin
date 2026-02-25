@@ -48,4 +48,12 @@ export default {
   "Warning: upload files is different of reciver files from api":
     "警告：上传的文件与接口返回的文件数量不一致",
   upload: "上传",
+  "No markdown files found in vault": "库中未找到 Markdown 文件",
+  "Scanning markdown files, please wait": "正在扫描 Markdown 文件，请稍候",
+  files: "文件",
+  "Found files with images": "找到含图片的文件",
+  "Total images": "总图片数",
+  "Scan complete": "扫描完成",
+  "files processed": "个文件已处理",
+  failed: "失败",
 };

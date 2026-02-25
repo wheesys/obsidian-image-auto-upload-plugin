@@ -68,6 +68,13 @@ export default class imageAutoUploadPlugin extends Plugin {
       },
     });
     this.addCommand({
+      id: "Scan and upload all images in vault",
+      name: "Scan and upload all images in vault",
+      callback: () => {
+        this.scanAndUploadAllImagesInVault();
+      },
+    });
+    this.addCommand({
       id: "Download all images",
       name: "Download all images",
       checkCallback: (checking: boolean) => {
@@ -369,6 +376,149 @@ export default class imageAutoUploadPlugin extends Plugin {
 
       this.replaceImage(imageList, uploadUrlList);
     });
+  }
+
+  /**
+   * 扫描整个库并上传所有图片
+   */
+  async scanAndUploadAllImagesInVault() {
+    const allFiles = this.app.vault.getFiles();
+    const markdownFiles = allFiles.filter(file => file.extension === "md");
+
+    if (markdownFiles.length === 0) {
+      new Notice(t("No markdown files found in vault"));
+      return;
+    }
+
+    new Notice(t("Scanning markdown files, please wait") + ` (${markdownFiles.length} ${t("files")})`);
+
+    const fileMap = arrayToObject(this.app.vault.getFiles(), "name");
+    const filePathMap = arrayToObject(this.app.vault.getFiles(), "path");
+    const filesWithImages: Array<{
+      file: TFile;
+      images: (Image & { file: TFile | null })[];
+    }> = [];
+    let totalImages = 0;
+
+    for (const mdFile of markdownFiles) {
+      const content = await this.app.vault.read(mdFile);
+      const imageLinks = this.helper.getImageLink(content);
+      const filteredImages = this.filterFile(imageLinks);
+
+      if (filteredImages.length > 0) {
+        const imageList: (Image & { file: TFile | null })[] = [];
+
+        for (const match of filteredImages) {
+          const imageName = match.name;
+          const uri = decodeURI(match.path);
+
+          if (uri.startsWith("http")) {
+            imageList.push({
+              path: match.path,
+              name: imageName,
+              source: match.source,
+              file: null,
+            });
+          } else {
+            const fileName = basename(uri);
+            let file: TFile | undefined | null;
+
+            // 优先匹配绝对路径
+            if (filePathMap[uri]) {
+              file = filePathMap[uri];
+            }
+
+            // 相对路径
+            if ((!file && uri.startsWith("./")) || uri.startsWith("../")) {
+              const filePath = normalizePath(
+                resolve(dirname(mdFile.path), uri)
+              );
+              file = filePathMap[filePath];
+            }
+
+            // 尽可能短路径
+            if (!file) {
+              file = fileMap[fileName];
+            }
+
+            if (file) {
+              if (isAssetTypeAnImage(file.path)) {
+                imageList.push({
+                  path: normalizePath(file.path),
+                  name: imageName,
+                  source: match.source,
+                  file: file,
+                });
+              }
+            }
+          }
+        }
+
+        if (imageList.length > 0) {
+          filesWithImages.push({
+            file: mdFile,
+            images: imageList,
+          });
+          totalImages += imageList.length;
+        }
+      }
+    }
+
+    if (filesWithImages.length === 0) {
+      new Notice(t("Can not find image file"));
+      return;
+    }
+
+    new Notice(t("Found files with images") + `: ${filesWithImages.length}, ` + t("Total images") + `: ${totalImages}`);
+
+    // 处理每个文件的图片上传
+    let processedCount = 0;
+    let successCount = 0;
+    let failedCount = 0;
+
+    for (const { file: mdFile, images: imageList } of filesWithImages) {
+      try {
+        const res = await this.upload(imageList);
+        let uploadUrlList = res.result;
+
+        if (imageList.length !== uploadUrlList.length) {
+          new Notice(
+            `${mdFile.name}: ` + t("Warning: upload files is different of reciver files from api")
+          );
+          failedCount++;
+          continue;
+        }
+
+        // 更新文件内容
+        let content = await this.app.vault.read(mdFile);
+        imageList.map(item => {
+          const uploadImage = uploadUrlList.shift();
+          let name = this.handleName(item.name);
+          content = content.replaceAll(item.source, `![${name}](${uploadImage})`);
+        });
+        await this.app.vault.modify(mdFile, content);
+
+        // 删除源文件
+        if (this.settings.deleteSource) {
+          imageList.map(async image => {
+            if (image.file && !image.path.startsWith("http")) {
+              this.app.fileManager.trashFile(image.file);
+            }
+          });
+        }
+
+        processedCount++;
+        successCount++;
+      } catch (error) {
+        console.error(`Failed to process ${mdFile.name}:`, error);
+        failedCount++;
+      }
+    }
+
+    new Notice(
+      t("Scan complete") + `: ${processedCount}/${filesWithImages.length} ` + t("files processed") +
+      (failedCount > 0 ? `, ${failedCount} ` + t("failed") : "")
+    );
   }
 
   setupPasteHandler() {

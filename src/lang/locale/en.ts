@@ -54,4 +54,12 @@ export default {
   "Warning: upload files is different of reciver files from api":
     "Warning: upload files num is different of reciver files from api",
   upload: "Upload",
+  "No markdown files found in vault": "No markdown files found in vault",
+  "Scanning markdown files, please wait": "Scanning markdown files, please wait",
+  files: "files",
+  "Found files with images": "Found files with images",
+  "Total images": "Total images",
+  "Scan complete": "Scan complete",
+  "files processed": "files processed",
+  failed: "failed",
 };
