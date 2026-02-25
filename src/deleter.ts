@@ -1,11 +1,11 @@
 import { IStringKeyMap } from "./utils";
 import { requestUrl } from "obsidian";
-import imageAutoUploadPlugin from "./main";
+import imageEnhancePlugin from "./main";
 
 export class PicGoDeleter {
-  plugin: imageAutoUploadPlugin;
+  plugin: imageEnhancePlugin;
 
-  constructor(plugin: imageAutoUploadPlugin) {
+  constructor(plugin: imageEnhancePlugin) {
     this.plugin = plugin;
   }
 

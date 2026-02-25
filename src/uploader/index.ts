@@ -3,7 +3,7 @@ import { Platform, Notice } from "obsidian";
 import PicGoUploader from "./picgo";
 import PicGoCoreUploader from "./picgoCore";
 
-import type ImageAutoUploadPlugin from "../main";
+import type ImageEnhancePlugin from "../main";
 import type { Image } from "../types";
 
 export function getUploader(uploader: string) {
@@ -19,9 +19,9 @@ export function getUploader(uploader: string) {
 
 export class UploaderManager {
   uploader: PicGoUploader | PicGoCoreUploader;
-  plugin: ImageAutoUploadPlugin;
+  plugin: ImageEnhancePlugin;
 
-  constructor(uploader: string, plugin: ImageAutoUploadPlugin) {
+  constructor(uploader: string, plugin: ImageEnhancePlugin) {
     this.plugin = plugin;
     const Uploader = getUploader(uploader);
     this.uploader = new Uploader(this.plugin);

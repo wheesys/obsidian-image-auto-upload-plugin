@@ -3,16 +3,16 @@ import { join } from "path-browserify";
 import { streamToString, getLastImage } from "../utils";
 import { normalizePath, FileSystemAdapter } from "obsidian";
 
-import type imageAutoUploadPlugin from "../main";
+import type imageEnhancePlugin from "../main";
 import type { Image } from "../types";
 import type { PluginSettings } from "../setting";
 import type { Uploader } from "./types";
 
 export default class PicGoCoreUploader implements Uploader {
   settings: PluginSettings;
-  plugin: imageAutoUploadPlugin;
+  plugin: imageEnhancePlugin;
 
-  constructor(plugin: imageAutoUploadPlugin) {
+  constructor(plugin: imageEnhancePlugin) {
     this.settings = plugin.settings;
     this.plugin = plugin;
   }

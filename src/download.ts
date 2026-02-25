@@ -5,9 +5,9 @@ import imageType from "image-type";
 
 import { getUrlAsset, uuid } from "./utils";
 import { t } from "./lang/helpers";
-import type imageAutoUploadPlugin from "./main";
+import type imageEnhancePlugin from "./main";
 
-export async function downloadAllImageFiles(plugin: imageAutoUploadPlugin) {
+export async function downloadAllImageFiles(plugin: imageEnhancePlugin) {
   const activeFile = plugin.app.workspace.getActiveFile();
   const folderPath = await plugin.app.fileManager.getAvailablePathForAttachment(
     ""
@@ -65,7 +65,7 @@ export async function downloadAllImageFiles(plugin: imageAutoUploadPlugin) {
 }
 
 async function download(
-  plugin: imageAutoUploadPlugin,
+  plugin: imageEnhancePlugin,
   url: string,
   folderPath: string,
   name: string

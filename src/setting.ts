@@ -1,5 +1,5 @@
 import { App, PluginSettingTab, Setting, Notice, Platform } from "obsidian";
-import imageAutoUploadPlugin from "./main";
+import imageEnhancePlugin from "./main";
 import { t } from "./lang/helpers";
 
 export interface PluginSettings {
@@ -34,9 +34,9 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 };
 
 export class SettingTab extends PluginSettingTab {
-  plugin: imageAutoUploadPlugin;
+  plugin: imageEnhancePlugin;
 
-  constructor(app: App, plugin: imageAutoUploadPlugin) {
+  constructor(app: App, plugin: imageEnhancePlugin) {
     super(app, plugin);
     this.plugin = plugin;
   }

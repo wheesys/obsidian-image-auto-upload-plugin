@@ -4,7 +4,7 @@ import { requestUrl, normalizePath, FileSystemAdapter } from "obsidian";
 import { bufferToArrayBuffer } from "../utils";
 import { payloadGenerator } from "../payloadGenerator";
 
-import type imageAutoUploadPlugin from "../main";
+import type imageEnhancePlugin from "../main";
 import type { Image } from "../types";
 import type { Response, Uploader } from "./types";
 import type { PluginSettings } from "../setting";
@@ -19,9 +19,9 @@ interface PicGoResponse {
 
 export default class PicGoUploader implements Uploader {
   settings: PluginSettings;
-  plugin: imageAutoUploadPlugin;
+  plugin: imageEnhancePlugin;
 
-  constructor(plugin: imageAutoUploadPlugin) {
+  constructor(plugin: imageEnhancePlugin) {
     this.settings = plugin.settings;
     this.plugin = plugin;
   }

@@ -22,7 +22,7 @@ import { SettingTab, PluginSettings, DEFAULT_SETTINGS } from "./setting";
 
 import type { Image } from "./types";
 
-export default class imageAutoUploadPlugin extends Plugin {
+export default class imageEnhancePlugin extends Plugin {
   settings: PluginSettings;
   helper: Helper;
   editor: Editor;
@@ -721,7 +721,7 @@ export default class imageAutoUploadPlugin extends Plugin {
         "editor-paste",
         (evt: ClipboardEvent, editor: Editor, markdownView: MarkdownView) => {
           const allowUpload = this.helper.getFrontmatterValue(
-            "image-auto-upload",
+            "image-enhance",
             this.settings.uploadByClipSwitch
           );
 
@@ -784,7 +784,7 @@ export default class imageAutoUploadPlugin extends Plugin {
             return;
           }
           const allowUpload = this.helper.getFrontmatterValue(
-            "image-auto-upload",
+            "image-enhance",
             this.settings.uploadByClipSwitch
           );
 
@@ -860,7 +860,7 @@ export default class imageAutoUploadPlugin extends Plugin {
   }
 
   insertTemporaryText(editor: Editor, pasteId: string) {
-    let progressText = imageAutoUploadPlugin.progressTextFor(pasteId);
+    let progressText = imageEnhancePlugin.progressTextFor(pasteId);
     editor.replaceSelection(progressText + "\n");
   }
 
@@ -874,12 +874,12 @@ export default class imageAutoUploadPlugin extends Plugin {
     imageUrl: any,
     name: string = ""
   ) {
-    let progressText = imageAutoUploadPlugin.progressTextFor(pasteId);
+    let progressText = imageEnhancePlugin.progressTextFor(pasteId);
     name = this.handleName(name);
 
     let markDownImage = `![${name}](${imageUrl})`;
 
-    imageAutoUploadPlugin.replaceFirstOccurrence(
+    imageEnhancePlugin.replaceFirstOccurrence(
       editor,
       progressText,
       markDownImage
@@ -889,8 +889,8 @@ export default class imageAutoUploadPlugin extends Plugin {
   handleFailedUpload(editor: Editor, pasteId: string, reason: any) {
     new Notice(reason);
     console.error("Failed request: ", reason);
-    let progressText = imageAutoUploadPlugin.progressTextFor(pasteId);
-    imageAutoUploadPlugin.replaceFirstOccurrence(
+    let progressText = imageEnhancePlugin.progressTextFor(pasteId);
+    imageEnhancePlugin.replaceFirstOccurrence(
       editor,
       progressText,
       "⚠️upload failed, check dev console"
