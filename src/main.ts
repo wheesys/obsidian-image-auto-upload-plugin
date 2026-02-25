@@ -88,6 +88,20 @@ export default class imageAutoUploadPlugin extends Plugin {
         return false;
       },
     });
+    this.addCommand({
+      id: "Clean unused images",
+      name: "Clean unused images",
+      callback: () => {
+        this.cleanUnusedImages();
+      },
+    });
+    this.addCommand({
+      id: "Delete broken image links",
+      name: "Delete broken image links",
+      callback: () => {
+        this.deleteBrokenImageLinks();
+      },
+    });
     this.setupPasteHandler();
     this.registerFileMenu();
     this.registerSelection();
@@ -524,6 +538,181 @@ export default class imageAutoUploadPlugin extends Plugin {
       t("Scan complete") + `: ${processedCount}/${filesWithImages.length} ` + t("files processed") +
       (failedCount > 0 ? `, ${failedCount} ` + t("failed") : "")
     );
+  }
+
+  /**
+   * 清理仓库中未被引用的无用图片
+   */
+  async cleanUnusedImages() {
+    const allFiles = this.app.vault.getFiles();
+    const allImageFiles = allFiles.filter(file => isAssetTypeAnImage(file.path));
+    const markdownFiles = allFiles.filter(file => file.extension === "md");
+
+    if (allImageFiles.length === 0) {
+      new Notice(t("No image files found in vault"));
+      return;
+    }
+
+    new Notice(t("Scanning for unused images") + ` (${allImageFiles.length} ${t("Total images")})`);
+
+    // 收集所有被引用的图片路径
+    const referencedImages = new Set<string>();
+
+    for (const mdFile of markdownFiles) {
+      const content = await this.app.vault.read(mdFile);
+      const imageLinks = this.helper.getImageLink(content);
+
+      for (const image of imageLinks) {
+        const imagePath = decodeURI(image.path);
+        // 网络图片不计入
+        if (imagePath.startsWith("http")) {
+          continue;
+        }
+
+        // 尝试解析引用的图片文件
+        const fileMap = arrayToObject(this.app.vault.getFiles(), "name");
+        const filePathMap = arrayToObject(this.app.vault.getFiles(), "path");
+        const fileName = basename(imagePath);
+        let referencedFile: TFile | undefined | null;
+
+        // 优先匹配绝对路径
+        if (filePathMap[imagePath]) {
+          referencedFile = filePathMap[imagePath];
+        }
+
+        // 相对路径
+        if (!referencedFile && (imagePath.startsWith("./") || imagePath.startsWith("../"))) {
+          const filePath = normalizePath(
+            resolve(dirname(mdFile.path), imagePath)
+          );
+          referencedFile = filePathMap[filePath];
+        }
+
+        // 尽可能短路径
+        if (!referencedFile) {
+          referencedFile = fileMap[fileName];
+        }
+
+        if (referencedFile) {
+          referencedImages.add(referencedFile.path);
+        }
+      }
+    }
+
+    // 找出未被引用的图片
+    const unusedImages = allImageFiles.filter(
+      file => !referencedImages.has(file.path)
+    );
+
+    if (unusedImages.length === 0) {
+      new Notice(t("No unused images found"));
+      return;
+    }
+
+    // 显示结果并询问是否删除
+    const message = t("Found unused images") + `: ${unusedImages.length}\n` +
+      t("Do you want to move them to trash?");
+
+    // 使用 Obsidian 的确认对话框
+    const confirm = new Notice(message, 0);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // 直接执行删除，将文件移动到回收站
+    let deletedCount = 0;
+    for (const imageFile of unusedImages) {
+      try {
+        this.app.fileManager.trashFile(imageFile);
+        deletedCount++;
+      } catch (error) {
+        console.error(`Failed to delete ${imageFile.path}:`, error);
+      }
+    }
+
+    new Notice(
+      t("Cleanup complete") + `: ${deletedCount}/${unusedImages.length} ` + t("images moved to trash")
+    );
+  }
+
+  /**
+   * 删除所有笔记中引用的不存在的图片链接
+   */
+  async deleteBrokenImageLinks() {
+    const allFiles = this.app.vault.getFiles();
+    const markdownFiles = allFiles.filter(file => file.extension === "md");
+
+    if (markdownFiles.length === 0) {
+      new Notice(t("No markdown files found in vault"));
+      return;
+    }
+
+    new Notice(t("Scanning for broken image links") + ` (${markdownFiles.length} ${t("files")})`);
+
+    const fileMap = arrayToObject(this.app.vault.getFiles(), "name");
+    const filePathMap = arrayToObject(this.app.vault.getFiles(), "path");
+    let totalBrokenLinks = 0;
+    let processedFiles = 0;
+
+    for (const mdFile of markdownFiles) {
+      let content = await this.app.vault.read(mdFile);
+      const imageLinks = this.helper.getImageLink(content);
+      let modifiedContent = content;
+      let brokenLinksInFile = 0;
+
+      for (const image of imageLinks) {
+        const imagePath = decodeURI(image.path);
+
+        // 跳过网络图片
+        if (imagePath.startsWith("http")) {
+          continue;
+        }
+
+        // 检查引用的图片文件是否存在
+        const fileName = basename(imagePath);
+        let fileExists = false;
+
+        // 优先匹配绝对路径
+        if (filePathMap[imagePath]) {
+          fileExists = true;
+        }
+
+        // 相对路径
+        if (!fileExists && (imagePath.startsWith("./") || imagePath.startsWith("../"))) {
+          const filePath = normalizePath(
+            resolve(dirname(mdFile.path), imagePath)
+          );
+          if (filePathMap[filePath]) {
+            fileExists = true;
+          }
+        }
+
+        // 尽可能短路径
+        if (!fileExists && fileMap[fileName]) {
+          fileExists = true;
+        }
+
+        // 如果文件不存在，删除这个图片链接
+        if (!fileExists) {
+          modifiedContent = modifiedContent.replace(image.source, "");
+          brokenLinksInFile++;
+          totalBrokenLinks++;
+        }
+      }
+
+      // 只有当内容确实发生变化时才写入文件
+      if (modifiedContent !== content) {
+        await this.app.vault.modify(mdFile, modifiedContent);
+        processedFiles++;
+      }
+    }
+
+    if (totalBrokenLinks === 0) {
+      new Notice(t("No broken image links found"));
+    } else {
+      new Notice(
+        t("Broken links cleanup complete") + `: ${processedFiles} ` + t("files processed") +
+        `, ${totalBrokenLinks} ` + t("links removed")
+      );
+    }
   }
 
   setupPasteHandler() {
