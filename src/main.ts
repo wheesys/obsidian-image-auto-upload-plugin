@@ -246,6 +246,11 @@ export default class imageAutoUploadPlugin extends Plugin {
     const imageList: Image[] = [];
 
     for (const match of fileArray) {
+      // 过滤掉 path 为空或 undefined 的无效数据
+      if (!match.path) {
+        continue;
+      }
+
       if (match.path.startsWith("http")) {
         if (this.settings.workOnNetWork) {
           if (
