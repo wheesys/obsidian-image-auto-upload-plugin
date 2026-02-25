@@ -9,11 +9,11 @@
 
 # 4.1.0(2024.11.28)
 
-1. 修复 ob1.7.5 版本后拖拽时无法上传的 bug [#160](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/160)
+1. 修复 ob1.7.5 版本后拖拽时无法上传的 bug [#160](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/160)
 
 # 4.0.1(2024.11.20)
 
-1. 修复无法下载图片的 bug [#83](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/83)
+1. 修复无法下载图片的 bug [#83](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/83)
 2. 重构下载模块代码以便之后对 mobile 的支持
 
 # 4.0.0(2024.11.18)
@@ -23,9 +23,9 @@
 多年前的不成熟之作，感谢各位的使用，已经脱离 ob 的开发太久了，我和代码已经两不相熟，希望这个版本不会带来太多 bug。
 
 1. 移除 node-fetch-native 依赖
-2. 增加`![](<image>)`类型的解析 [#156](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/156)
-3. 增加 md 的 alt 支持 [#143](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/143)
-4. 按 ctrl 键进行拖拽上传时，不再调用上传 [#147](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/147)
+2. 增加`![](<image>)`类型的解析 [#156](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/156)
+3. 增加 md 的 alt 支持 [#143](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/143)
+4. 按 ctrl 键进行拖拽上传时，不再调用上传 [#147](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/147)
 5. Change plugin name to "Image auto upload"
 
 顺便求个赞助，如果本项目对你有帮助，请我喝瓶快乐水吧，有助于项目更好维护。  
@@ -86,7 +86,7 @@ picgo-core 全功能支持
 
 # 2.4.2
 
-fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/42)
+fix [issue42](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/42)
 
 # 2.5.0
 
@@ -94,29 +94,29 @@ fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issu
 
 # 2.6.0
 
-修复 MacOs 及 Linux 无法使用环境变量的[问题](https://github.com/renmu123/obsidian-image-auto-upload-plugin/pull/44)
+修复 MacOs 及 Linux 无法使用环境变量的[问题](https://github.com/wheesys/obsidian-image-enhance-plugin/pull/44)
 
 # 2.6.1
 
-修复所有环境执行 fixPath 的[错误](https://github.com/renmu123/obsidian-image-auto-upload-plugin/pull/45)
+修复所有环境执行 fixPath 的[错误](https://github.com/wheesys/obsidian-image-enhance-plugin/pull/45)
 
 # 2.6.2
 
-修复 [黏贴非图片文件时也会自动上传的 bug](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/19)。
+修复 [黏贴非图片文件时也会自动上传的 bug](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/19)。
 
 # 2.7.0
 
-增加配置项处理类似 Excel 等复制时会同时讲数据写入 image 和 text 的情况 [#49](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/49)
+增加配置项处理类似 Excel 等复制时会同时讲数据写入 image 和 text 的情况 [#49](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/49)
 
 # 2.8.0
 
-1. 修复 wiki 链接中包含缩放参数时的解析失败 [#67](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/67)
-2. 批量上传图片时支持网络图片 [#65](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/65)
+1. 修复 wiki 链接中包含缩放参数时的解析失败 [#67](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/67)
+2. 批量上传图片时支持网络图片 [#65](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/65)
 
 # 2.9.0
 
-1. 增加域名黑名单 [#70](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/70)
-2. 剪切板自动上传的图片增加文件名 [#56](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/56)
+1. 增加域名黑名单 [#70](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/70)
+2. 剪切板自动上传的图片增加文件名 [#56](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/56)
 
 # 3.0.0
 
@@ -128,7 +128,7 @@ fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issu
 
 # 3.1.0
 
-1. 修复剪贴板内容为图片链接时黑名单失效的问题 [#73](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/73)
+1. 修复剪贴板内容为图片链接时黑名单失效的问题 [#73](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/73)
 2. 支持上传后删除源文件
 
 # 3.1.1
@@ -137,7 +137,7 @@ fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issu
 
 # 3.2.0
 
-1. 优化上传所有图片指令针对绝对路径解析 [#82](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/82)
+1. 优化上传所有图片指令针对绝对路径解析 [#82](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/82)
 
 # 3.2.1
 
@@ -151,8 +151,8 @@ fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issu
 # 3.3.1
 
 1. 修改下载文件后的命名问题
-2. 修复使用 PicList 批量上传无法删除图片的 bug [#94](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/94)
-3. 修复应用网络图片选项失效的问题 [#93](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/93)
+2. 修复使用 PicList 批量上传无法删除图片的 bug [#94](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/94)
+3. 修复应用网络图片选项失效的问题 [#93](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/93)
 
 # 3.3.2
 
@@ -160,12 +160,12 @@ fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issu
 
 # 3.4.0
 
-1. 下载功能优化，不再根据 url 的后缀进行判断，现在根据页面返回的 arraybuffer 的头来进行判断，兼容更多图片下载。 [#96](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/96)
+1. 下载功能优化，不再根据 url 的后缀进行判断，现在根据页面返回的 arraybuffer 的头来进行判断，兼容更多图片下载。 [#96](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/96)
 2. 更新依赖版本
 
 # 3.4.1
 
-1. 过滤空黑名单规则 [#98](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/98)
+1. 过滤空黑名单规则 [#98](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/98)
 
 # 3.4.2
 
@@ -178,18 +178,18 @@ fix [issue42](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issu
 <!-- 2. 应用网络图片增加描述 -->
 
 1. 配置为 picgo-core 时不显示 piclist 的专有配置项
-2. 增加配置项用于处理图片描述[#91](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/91)
+2. 增加配置项用于处理图片描述[#91](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/91)
 3. 在 canvas 图片右键菜单中不显示 upload 菜单
-4. 尝试性修复[#103](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/103)，我也不知道行不行
+4. 尝试性修复[#103](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/103)，我也不知道行不行
 
 # 3.6.0
 
 1. 命令行上传好像还是不行，改回了原来的实现[#103]，期待有缘人解决
-2. 修复 wiki 链接的上传[#102](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/102)
+2. 修复 wiki 链接的上传[#102](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/102)
 
 # 3.6.1
 
-1. 批量上传与下载后验证前后文件路径是否相同，防止覆盖 [[#108]](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/108)
+1. 批量上传与下载后验证前后文件路径是否相同，防止覆盖 [[#108]](https://github.com/wheesys/obsidian-image-enhance-plugin/issues/108)
 
 # 3.7.0
 

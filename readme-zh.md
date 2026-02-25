@@ -1,4 +1,4 @@
-# Obsidian Image Auto Upload Plugin
+# Obsidian Image Enhance Plugin
 
 这是一个支持 PicGo、PicList、PicGo-Core 上传图片到图床的工具
 **更新插件后记得重启一下 Obsidian**
@@ -34,7 +34,7 @@
 
 ```yaml
 ---
-image-auto-upload: true
+image-enhance: true
 ---
 ```
 
@@ -95,7 +95,7 @@ image-auto-upload: true
 
 ### MacOs 下无法长传
 
-参考 [#160](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/160), [#20](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/20)
+参考 [#160](https://github.com/renmu123/obsidian-image-enhance-plugin/issues/160), [#20](https://github.com/renmu123/obsidian-image-enhance-plugin/issues/20)
 
 # TODO
 
@@ -109,8 +109,8 @@ image-auto-upload: true
 
 # 赞赏
 
-如果本项目对你有帮助，请我喝瓶快乐水吧，有助于项目更好维护。  
-爱发电：[https://afdian.com/a/renmu123](https://afdian.com/a/renmu123)  
+如果本项目对你有帮助，请我喝瓶快乐水吧，有助于项目更好维护。
+爱发电：[https://afdian.com/a/renmu123](https://afdian.com/a/renmu123)
 你也可以给我的 B 站帐号 [充电](https://space.bilibili.com/10995238)
 
 # 开发

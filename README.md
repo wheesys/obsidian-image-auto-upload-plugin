@@ -1,6 +1,6 @@
 [English](README-en.md)
 
-# Obsidian 图片自动上传插件
+# Obsidian 图片增强插件
 
 这是一个 Obsidian 插件，支持通过 PicGo、PicList、PicGo-Core 将图片自动上传到图床。主要功能包括：
 
@@ -48,7 +48,7 @@
 
 ```yaml
 ---
-image-auto-upload: true
+image-enhance: true
 ---
 ```
 
@@ -118,7 +118,7 @@ image-auto-upload: true
 
 ### macOS 下无法上传
 
-参考 [#160](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/160)、[#20](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/20)
+参考 [#160](https://github.com/renmu123/obsidian-image-enhance-plugin/issues/160)、[#20](https://github.com/renmu123/obsidian-image-enhance-plugin/issues/20)
 
 ---
 

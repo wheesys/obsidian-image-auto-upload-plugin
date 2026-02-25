@@ -1,8 +1,8 @@
-# Obsidian Image Auto Upload Plugin - Claude AI 上下文
+# Obsidian Image Enhance Plugin - Claude AI 上下文
 
 ## 项目概述
 
-Obsidian 图片自动上传插件，支持通过 PicGo/PicList 上传剪贴板或本地图片。
+Obsidian 图片增强插件，支持通过 PicGo/PicList 上传剪贴板或本地图片。
 
 ## 技术栈
 

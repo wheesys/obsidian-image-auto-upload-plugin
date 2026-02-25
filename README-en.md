@@ -1,6 +1,6 @@
 [中文文档](readme-zh.md)
 
-# Obsidian Image Auto Upload Plugin
+# Obsidian Image Enhance Plugin
 
 This is a tool that supports uploading images to image beds using PicGo, PicList, and PicGo-Core.
 **Remember to restart Obsidian after updating the plugin.**
@@ -28,15 +28,15 @@ Using this feature, you can upload images to different picbeds in different Obsi
 
 When you paste an image to Obsidian, this plugin will automatically upload your image.
 
-You can set `image-auto-upload: false` in `frontmatter` to control one file.
+You can set `image-enhance: false` in `frontmatter` to control one file.
 
 Supports ".png", ".jpg", ".jpeg", ".bmp", ".gif", ".svg", ".tiff", ".webp", ".avif"
 
-Due to the [bug](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/2) in PicGo 2.3.0-beta7, you cannot use this feature. Please install another version of PicGo.
+Due to the [bug](https://github.com/renmu123/obsidian-image-enhance-plugin/issues/2) in PicGo 2.3.0-beta7, you cannot use this feature. Please install another version of PicGo.
 
 ```yaml
 ---
-image-auto-upload: true
+image-enhance: true
 ---
 ```
 
