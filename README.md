@@ -1,38 +1,50 @@
-[中文文档](readme-zh.md)
+[English](README-en.md)
 
-# Obsidian Image Auto Upload Plugin
+# Obsidian 图片自动上传插件
 
-This is a tool that supports uploading images to image beds using PicGo, PicList, and PicGo-Core.
-**Remember to restart Obsidian after updating the plugin.**
+这是一个 Obsidian 插件，支持通过 PicGo、PicList、PicGo-Core 将图片自动上传到图床。主要功能包括：
 
-**Not tested on Mac**
+- **剪贴板自动上传** - 粘贴图片时自动上传并替换为图床链接
+- **批量上传** - 一键上传当前文件或整个库中的所有图片
+- **批量下载** - 将网络图片下载到本地
+- **图片清理** - 清理库中未被引用的无用图片
+- **删除失效链接** - 删除指向不存在图片的链接
+- **多种上传方式** - 支持右键菜单、拖拽上传
+- **灵活配置** - 支持 frontmatter 控制单个文件的上传行为
 
-# Start
+**更新插件后记得重启 Obsidian**
 
-1. Install the PicGo tool and configure it, refer to the [official website](https://github.com/Molunerfinn/PicGo)
-2. Enable PicGo's Server service and remember the port number
-3. Install the plugin
-4. Open the plugin settings and set it to `http://127.0.0.1:{{port set in PicGo}}/upload` (e.g., `http://127.0.0.1:36677/upload`)
-5. Try to see if the upload is successful
+**未在 Mac 进行测试**
 
-## Set picbed and configName
+---
 
-If you are using PicList (version >= 2.5.3), you can set the picbed and configName through URL parameters.
-Example: `http://127.0.0.1:36677/upload?picbed=smms&configName=piclist`
-This will upload the image to the `smms` picbed and use the piclist configName.
-Using this feature, you can upload images to different picbeds in different Obsidian vaults.
+# 快速开始
 
-# Features
+1. 安装 [PicGo](https://github.com/Molunerfinn/PicGo) 工具并进行配置
+2. 开启 PicGo 的 Server 服务，并记住端口号
+3. 安装本插件
+4. 打开插件设置，设置为 `http://127.0.0.1:{{PicGo设置的端口号}}/upload`（例如：`http://127.0.0.1:36677/upload`）
+5. 尝试粘贴图片，测试上传是否成功
 
-## Upload when paste image
+## 设置图床和配置名
 
-When you paste an image to Obsidian, this plugin will automatically upload your image.
+如果你使用的是 PicList（version >= 2.5.3），可以通过 URL 参数设置图床和配置名。
 
-You can set `image-auto-upload: false` in `frontmatter` to control one file.
+例如：`http://127.0.0.1:36677/upload?picbed=smms&configName=piclist`
 
-Supports ".png", ".jpg", ".jpeg", ".bmp", ".gif", ".svg", ".tiff", ".webp", ".avif"
+这将会上传图片到 `smms` 图床，并使用配置名为 `piclist` 的图床设置。使用这个功能，你可以在不同的 Obsidian vault 中上传到不同的图床。
 
-Due to the [bug](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/2) in PicGo 2.3.0-beta7, you cannot use this feature. Please install another version of PicGo.
+---
+
+# 功能特性
+
+## 剪贴板上传
+
+粘贴图片到 Obsidian 时，插件会自动上传图片。
+
+支持的图片格式：`.png`、`.jpg`、`.jpeg`、`.bmp`、`.gif`、`.svg`、`.tiff`、`.webp`、`.avif`
+
+可以通过 frontmatter 控制单个文件是否自动上传（默认为 `true`）：
 
 ```yaml
 ---
@@ -40,43 +52,122 @@ image-auto-upload: true
 ---
 ```
 
-## Upload all local images file by command
+> 注意：该功能在 PicGo 2.3.0-beta7 版本中存在 bug，请使用其他版本。
 
-press `ctrl+P` and input `upload all images`，enter, then will auto upload all local images
+## 批量上传当前文件的所有图片
 
-## download all internet to local
+按 `Ctrl+P`（Mac 为 `Cmd+P`）呼出命令面板，输入 `Upload all images`，按回车即可自动上传当前文件中的所有图片。
 
-press `ctrl+P` and input `download all images`，enter, then will auto download all internet images to loacl, only test in win10
+路径解析优先级：
+1. 绝对路径（基于库的绝对路径）
+2. 相对路径（以 `./` 或 `../` 开头）
+3. 尽可能简短的形式
 
-## Upload image by contextMenu
+## 扫描并上传整个库的图片
 
-Now you can upload image by contextMenu in edit mode.
+按 `Ctrl+P` 呼出命令面板，输入 `Scan and upload all images in vault`，按回车即可扫描整个库并上传所有 Markdown 文件中的图片。
 
-## Support drag-and-drop
+## 批量下载网络图片
 
-Only work for picgo or picList app.
+按 `Ctrl+P` 呼出命令面板，输入 `Download all images`，按回车即可将当前文件中的所有网络图片下载到本地。
 
-## server mode
+## 清理无用图片
 
-You can deploy [PicList](https://github.com/Kuingsmile/PicList/releases) or [PicList-Core](https://github.com/Kuingsmile/PicList-Core) in your server and upload to it.
+按 `Ctrl+P` 呼出命令面板，输入 `Clean unused images`，按回车即可扫描并删除库中未被任何 Markdown 文件引用的图片文件（移至回收站）。
 
-Support [PicList](https://github.com/Kuingsmile/PicList/releases) 2.6.3 later or [PicList-Core](https://github.com/Kuingsmile/PicList-Core)1.3.0 later
+## 删除失效图片链接
 
-You can not upload network in this mode.
-If you upload fail when you paste img, you can alse try to enable the mode.
+按 `Ctrl+P` 呼出命令面板，输入 `Delete broken image links`，按回车即可删除所有笔记中指向不存在图片的链接内容。
 
-## Support picgo-core
+## 右键菜单上传
 
-You can install picgo-core with npm. Reference to [doc](https://picgo.github.io/PicGo-Core-Doc/)
+在编辑模式下，可以右键点击文件列表中的图片进行上传。
 
-# TODO
+支持标准 Markdown 语法和 Wiki 链接语法，支持相对路径和绝对路径。
 
-- [x] upload all local images file by command
-- [x] support yaml to config if upload image
-- [x] support picgo-core
-- [x] support upload image from system copy selected image
-- [x] support network image
+## 拖拽上传
 
-# Thanks
+支持拖拽图片文件到编辑器进行上传（仅在使用 PicGo 或 PicList 客户端时生效）。
+
+## 支持 PicGo-Core
+
+### 安装
+
+参考 [官方文档：全局安装](https://picgo.github.io/PicGo-Core-Doc/zh/guide/getting-started.html#%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85)
+
+### 配置
+
+参考 [官方文档：配置](https://picgo.github.io/PicGo-Core-Doc/zh/guide/config.html#%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
+
+### 插件配置
+
+1. `Default uploader` 选择 `PicGo-Core`
+2. 设置路径，默认为空（使用环境变量），也可设置自定义路径
+
+## 远程服务器模式
+
+你可以将 [PicList](https://github.com/Kuingsmile/PicList/releases) 或 [PicList-Core](https://github.com/Kuingsmile/PicList-Core) 部署在服务器上并启用 server 模式来实现图片上传。
+
+支持 [PicList](https://github.com/Kuingsmile/PicList/releases) 2.6.3 及以上版本或 [PicList-Core](https://github.com/Kuingsmile/PicList-Core) 1.3.0 及以上版本。
+
+> 注意：该模式下不支持上传网络图片。如果粘贴时上传图片失败，也可以尝试启用该模式。
+
+---
+
+# 常见问题
+
+### macOS 下无法上传
+
+参考 [#160](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/160)、[#20](https://github.com/renmu123/obsidian-image-auto-upload-plugin/issues/20)
+
+---
+
+# 开发计划
+
+- [x] 支持批量上传
+- [x] 支持 YAML 设置是否开启上传
+- [x] 支持 PicGo-Core
+- [x] 支持复制系统图片文件
+- [x] 支持网络图片
+- [x] 扫描整个库上传图片
+- [x] 清理无用图片
+- [x] 删除失效图片链接
+- [ ] 支持手机端
+- [ ] 支持更多图床适配器
+
+---
+
+# 赞赏
+
+如果本项目对你有帮助，请我喝瓶快乐水吧，有助于项目更好维护。
+
+- 爱发电：[https://afdian.com/a/renmu123](https://afdian.com/a/renmu123)
+- B 站充电：[https://space.bilibili.com/10995238](https://space.bilibili.com/10995238)
+
+---
+
+# 开发
+
+## 安装依赖
+
+```bash
+pnpm install
+```
+
+## 开发模式
+
+```bash
+pnpm run dev
+```
+
+## 构建
+
+```bash
+pnpm run build
+```
+
+---
+
+# 致谢
 
 [obsidian-imgur-plugin](https://github.com/gavvvr/obsidian-imgur-plugin)
