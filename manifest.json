@@ -1,10 +1,10 @@
 {
-  "id": "obsidian-image-enhance-plugin",
+  "id": "image-enhance",
   "name": "image enhance",
   "version": "1.0.0",
   "minAppVersion": "0.10.7",
-  "description": "This plugin uploads images from your clipboard by PicGo",
+  "description": "image enhance, about up(by picgo)/down/clean.",
   "author": "walle",
-  "authorUrl": "https://github.com/wheesys/obsidian-image-enhance-plugin.git",
+  "authorUrl": "https://github.com/wheesys",
   "isDesktopOnly": false
 }
