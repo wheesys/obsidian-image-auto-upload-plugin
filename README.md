@@ -162,3 +162,4 @@ pnpm run build
 # 致谢
 
 [obsidian-imgur-plugin](https://github.com/gavvvr/obsidian-imgur-plugin)
+[obsidian-image-auto-upload-plugin](https://github.com/renmu123/obsidian-image-auto-upload-plugin)
