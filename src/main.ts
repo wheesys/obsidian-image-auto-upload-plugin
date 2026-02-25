@@ -68,8 +68,8 @@ export default class imageEnhancePlugin extends Plugin {
       },
     });
     this.addCommand({
-      id: "Scan and upload all images in vault",
-      name: "Scan and upload all images in vault",
+      id: "Upload all images in vault",
+      name: "Upload all images in vault",
       callback: () => {
         this.scanAndUploadAllImagesInVault();
       },

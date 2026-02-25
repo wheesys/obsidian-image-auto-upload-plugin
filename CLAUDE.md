@@ -61,7 +61,7 @@ src/
 | ID | 名称 | 说明 |
 |---|---|---|
 | `Upload all images` | 上传所有图片 | 上传当前文件中的所有图片 |
-| `Scan and upload all images in vault` | 扫描并上传库中所有图片 | 扫描整个库并上传所有图片 |
+| `Upload all images in vault` | 上传库中所有图片 | 扫描整个库并上传所有图片 |
 | `Download all images` | 下载所有图片 | 下载当前文件中的所有网络图片 |
 | `Clean unused images` | 清理无用图片 | 删除库中未被引用的图片文件 |
 | `Delete broken image links` | 删除失效图片链接 | 删除指向不存在图片的链接 |

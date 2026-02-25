@@ -63,9 +63,9 @@ image-enhance: true
 2. 相对路径（以 `./` 或 `../` 开头）
 3. 尽可能简短的形式
 
-## 扫描并上传整个库的图片
+## 上传整个库的图片
 
-按 `Ctrl+P` 呼出命令面板，输入 `Scan and upload all images in vault`，按回车即可扫描整个库并上传所有 Markdown 文件中的图片。
+按 `Ctrl+P` 呼出命令面板，输入 `Upload all images in vault`，按回车即可扫描整个库并上传所有 Markdown 文件中的图片。
 
 ## 批量下载网络图片
 
