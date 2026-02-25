@@ -137,15 +137,6 @@ image-enhance: true
 
 ---
 
-# 赞赏
-
-如果本项目对你有帮助，请我喝瓶快乐水吧，有助于项目更好维护。
-
-- 爱发电：[https://afdian.com/a/renmu123](https://afdian.com/a/renmu123)
-- B 站充电：[https://space.bilibili.com/10995238](https://space.bilibili.com/10995238)
-
----
-
 # 开发
 
 ## 安装依赖
