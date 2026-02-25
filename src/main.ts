@@ -609,13 +609,8 @@ export default class imageEnhancePlugin extends Plugin {
       return;
     }
 
-    // 显示结果并询问是否删除
-    const message = t("Found unused images") + `: ${unusedImages.length}\n` +
-      t("Do you want to move them to trash?");
-
-    // 使用 Obsidian 的确认对话框
-    const confirm = new Notice(message, 0);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // 显示扫描结果并直接执行删除
+    new Notice(t("Found unused images") + `: ${unusedImages.length}, ` + t("Moving to trash") + "...");
 
     // 直接执行删除，将文件移动到回收站
     let deletedCount = 0;

@@ -66,7 +66,7 @@ export default {
   "Scanning for unused images": "Scanning for unused images",
   "No unused images found": "No unused images found",
   "Found unused images": "Found unused images",
-  "Do you want to move them to trash?": "Do you want to move them to trash?",
+  "Moving to trash": "Moving to trash",
   "Cleanup complete": "Cleanup complete",
   "images moved to trash": "images moved to trash",
   "Scanning for broken image links": "Scanning for broken image links",

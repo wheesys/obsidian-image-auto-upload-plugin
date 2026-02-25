@@ -60,7 +60,7 @@ export default {
   "Scanning for unused images": "正在扫描无用图片",
   "No unused images found": "未找到无用图片",
   "Found unused images": "发现无用图片",
-  "Do you want to move them to trash?": "是否要将它们移至回收站？",
+  "Moving to trash": "正在移至回收站",
   "Cleanup complete": "清理完成",
   "images moved to trash": "张图片已移至回收站",
   "Scanning for broken image links": "正在扫描失效图片链接",
